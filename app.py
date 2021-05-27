@@ -11,7 +11,7 @@ from nltk.stem import WordNetLemmatizer
 from sklearn.feature_extraction.text import TfidfTransformer
 from sklearn.feature_extraction.text import CountVectorizer
 import pickle
-import nltk
+import json
 
 
 # We want to remove these from the psosts
