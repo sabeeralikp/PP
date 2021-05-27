@@ -108,11 +108,11 @@ def give_rec(title):
 
         result[type_indicators[l][0:2]] = {
             'prediction': type_indicators[l][1:2] if y_pred[0] else type_indicators[l][0:1],
-            'score': score.max()
+            'score': str(score.max())
         }
         
 
-    return result
+    return pd.DataFrame (result)
 
 @app.route('/getrecs/', methods=['GET'])
 def respond():
@@ -132,7 +132,8 @@ def respond():
         response = [give_rec(title)]
         if response.empty:
             response = {'ERROR' : "no title found, please send a title."}
-        
+        else:
+            response = response.to_dict("records")
             
         
     # Return the response in json format
