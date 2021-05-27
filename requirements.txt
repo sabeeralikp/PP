@@ -18,5 +18,4 @@ Werkzeug==1.0.1
 xgboost==0.90
 nltk==3.2.5
 pickle-mixin==1.0.2
-wordnet
-stopwords
+
