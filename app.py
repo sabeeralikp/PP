@@ -129,7 +129,7 @@ def respond():
     elif str(title).isdigit():
         response["ERROR"] = "title can't be numeric."
     else:
-        response = give_rec(title)
+        response = [give_rec(title)]
         if response.empty:
             response = {'ERROR' : "no title found, please send a title."}
         
