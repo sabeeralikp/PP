@@ -11,8 +11,8 @@ from nltk.stem import WordNetLemmatizer
 from sklearn.feature_extraction.text import TfidfTransformer
 from sklearn.feature_extraction.text import CountVectorizer
 import pickle
+import nltk
 
-data = pd.read_csv('dataset.csv') 
 
 # We want to remove these from the psosts
 unique_type_list = ['INFJ', 'ENTP', 'INTP', 'INTJ', 'ENTJ', 'ENFJ', 'INFP', 'ENFP',
@@ -23,13 +23,6 @@ unique_type_list = [x.lower() for x in unique_type_list]
 b_Pers = {'I':0, 'E':1, 'N':0, 'S':1, 'F':0, 'T':1, 'J':0, 'P':1}
 b_Pers_list = [{0:'I', 1:'E'}, {0:'N', 1:'S'}, {0:'F', 1:'T'}, {0:'J', 1:'P'}]
 
-cntizer = CountVectorizer(analyzer="word", 
-                             max_features=1500, 
-                             tokenizer=None,    
-                             preprocessor=None, 
-                             stop_words=None,  
-                             max_df=0.7,
-                             min_df=0.1) 
 
 lemmatiser = WordNetLemmatizer()
 
@@ -77,25 +70,13 @@ def pre_process_data(data, remove_stop_words=True, remove_mbti_profiles=True):
     list_personality = np.array(list_personality)
     return list_posts, list_personality
 
-list_posts, list_personality  = pre_process_data(data, remove_stop_words=True)
 
 
+# Posts to a matrix of token counts
+cntizer = pickle.load(open('cntizer.pkl', "rb"))
 
-cntizer = CountVectorizer(analyzer="word", 
-                             max_features=1500, 
-                             tokenizer=None,    
-                             preprocessor=None, 
-                             stop_words=None,  
-                             max_df=0.7,
-                             min_df=0.1) 
-
-
-X_cnt = cntizer.fit_transform(list_posts)
-
-
-tfizer = TfidfTransformer()
-
-X_tfidf =  tfizer.fit_transform(X_cnt).toarray()
+# Transform the count matrix to a normalized tf or tf-idf representation
+tfizer = pickle.load(open('tfizer.pkl', "rb"))
 
 feature_names = list(enumerate(cntizer.get_feature_names()))
 
