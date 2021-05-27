@@ -11,10 +11,7 @@ from nltk.stem import WordNetLemmatizer
 from sklearn.feature_extraction.text import TfidfTransformer
 from sklearn.feature_extraction.text import CountVectorizer
 import pickle
-import nltk
 
-nltk.download('stopwords')
-nltk.download('wordnet')
 data = pd.read_csv('dataset.csv') 
 
 # We want to remove these from the psosts
